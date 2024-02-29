@@ -1,0 +1,14 @@
+*forest plot
+meta esize evente ne eventc nc, esize(lnrratio) fixed(mhaenszel) studylabel(studylbl)
+meta forestplot, fixed(mhaenszel) xlabel(0.1 "0.1" 0.5 "0.5" 1 "1" 2 "2" 10 "10") crop(0.1 10) nullrefline insidemarker rr
+meta esize evente ne eventc nc, esize(lnrratio) random(reml) studylabel(studylbl)
+meta forestplot, random(reml) xlabel(0.1 "0.1" 0.5 "0.5" 1 "1" 2 "2" 10 "10") crop(0.1 10) nullrefline insidemarker rr
+meta esize total1 mean1 sd1 total2 mean2 sd2, esize(mdiff) fixed(invvariance) studylabel(studylbl)
+meta forestplot, fixed(invvariance) xlabel(-20 "-20" -10 "-10" 0 "0" 10 "10" 20 "20") crop(-20 20) nullrefline insidemarker 
+meta esize total1 mean1 sd1 total2 mean2 sd2, esize(mdiff) random(reml) studylabel(studylbl)
+meta forestplot, random(reml) xlabel(-20 "-20" -10 "-10" 0 "0" 10 "10" 20 "20") crop(-20 20) nullrefline insidemarker
+
+*Funnel plot
+meta funnelplot
+meta funnelplot, random
+meta bias, egger
