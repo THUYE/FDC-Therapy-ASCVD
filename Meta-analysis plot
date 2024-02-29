@@ -1,4 +1,4 @@
-*forest plot
+*Forest plot
 meta esize evente ne eventc nc, esize(lnrratio) fixed(mhaenszel) studylabel(studylbl)
 meta forestplot, fixed(mhaenszel) xlabel(0.1 "0.1" 0.5 "0.5" 1 "1" 2 "2" 10 "10") crop(0.1 10) nullrefline insidemarker rr
 meta esize evente ne eventc nc, esize(lnrratio) random(reml) studylabel(studylbl)
