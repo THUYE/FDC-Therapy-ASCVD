@@ -1,12 +1,34 @@
-*Forest plot
-meta esize evente ne eventc nc, esize(lnrratio) fixed(mhaenszel) studylabel(studylbl)
-meta forestplot, fixed(mhaenszel) xlabel(0.1 "0.1" 0.5 "0.5" 1 "1" 2 "2" 10 "10") crop(0.1 10) nullrefline insidemarker rr
-meta esize evente ne eventc nc, esize(lnrratio) random(reml) studylabel(studylbl)
-meta forestplot, random(reml) xlabel(0.1 "0.1" 0.5 "0.5" 1 "1" 2 "2" 10 "10") crop(0.1 10) nullrefline insidemarker rr
-meta esize total1 mean1 sd1 total2 mean2 sd2, esize(mdiff) fixed(invvariance) studylabel(studylbl)
-meta forestplot, fixed(invvariance) xlabel(-20 "-20" -10 "-10" 0 "0" 10 "10" 20 "20") crop(-20 20) nullrefline insidemarker 
-meta esize total1 mean1 sd1 total2 mean2 sd2, esize(mdiff) random(reml) studylabel(studylbl)
-meta forestplot, random(reml) xlabel(-20 "-20" -10 "-10" 0 "0" 10 "10" 20 "20") crop(-20 20) nullrefline insidemarker
+#Load Libraries
+library(meta)
+library(metafor)
+
+#Insert effect sizes and sample sizes
+es.d<-c(2.19, 0.91, 0.91, 0.79, 0.89)
+n1<-c(5, 149, 202, 109)
+n2<-c(2, 163, 222, 112)
+
+#Calculate Variance ES
+es.d.v <-(((n1+n2)/(n1*n2))+(es.d^2/(2*(n1+n2))))
+#Calculate Standard Errors ES
+d.se<-sqrt(es.d.v)
+
+#Fixed-effect and Random-effects meta-analysis
+#Once with meta package, once with metafor package
+
+meta1<-metagen(es.d, d.se)
+meta2<-rma(es.d, es.d.v)
+
+#Show results from both packages
+meta1
+meta2
+
+#Forest Plot
+forest(meta1, studlab=c("Study1","Study2","Study3","Study4"), xlab="Cohen’s d", col.square="black",xlim=c(-3,3), col.diamond="black", fontsize=14, plotwidth=unit(12, "cm"), squaresize=0.5, leftcols=c("studlab"), rightcols=c("effect", "ci"), hetstat=FALSE, comb.fixed=FALSE, text.random="Overall ES", print.tau2=FALSE,print.I2=FALSE,TE.random=FALSE, seTE.random=FALSE) 
+
+#Outlier Analysis and Check for Influential Cases
+influence(meta2)
+plot(influence(meta2))
+
 
 *Funnel plot
 meta funnelplot
